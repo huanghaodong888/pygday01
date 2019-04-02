@@ -36,7 +36,7 @@
     <dubbo:application name="pinyougou-manager-web"  />
 
     <!-- 使用zookeeper注册中心发现服务地址 -->
-    <dubbo:registry address="zookeeper://192.168.12.131:2181" />
+    <dubbo:registry address="zookeeper://192.168.75.129:2181" />
 
     <!-- 配置采用包扫描来引用服务，产生服务接口的代理对象 -->
     <dubbo:annotation package="com.pinyougou.manager.controller"/>
