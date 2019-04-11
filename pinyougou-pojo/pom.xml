@@ -10,5 +10,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>pinyougou-pojo</artifactId>
+    <dependencies>
+        <!-- 配置通用mapper -->
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -4,12 +4,14 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.ISelect;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.pinyougou.common.pojo.PageResult;
 import com.pinyougou.mapper.BrandMapper;
 import com.pinyougou.pojo.Brand;
 import com.pinyougou.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -26,19 +28,85 @@ public class BrandServiceImpl implements BrandService {
     @Autowired
     private BrandMapper brandMapper;
 
+    /**
+     * 添加方法
+     *
+     * @param brand
+     */
+    @Override
+    public void save(Brand brand) {
+        brandMapper.insertSelective(brand);
+    }
+
+    /**
+     * 修改方法
+     *
+     * @param brand
+     */
+    @Override
+    public void update(Brand brand) {
+        brandMapper.updateByPrimaryKeySelective(brand);
+    }
+
+    /**
+     * 根据主键id删除
+     *
+     * @param id
+     */
+    @Override
+    public void delete(Serializable id) {
+        brandMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     */
+    @Override
+    public void deleteAll(Serializable[] ids) {
+       brandMapper.deleteAll(ids);
+    }
+
+    /**
+     * 根据主键id查询
+     *
+     * @param id
+     */
+    @Override
+    public Brand findOne(Serializable id) {
+        return null;
+    }
+
+    /**
+     * 查询全部
+     */
     @Override
     public List<Brand> findAll() {
-        // 开始分页
-        PageInfo<Brand> pageInfo = PageHelper.startPage(1, 10)
-                .doSelectPageInfo(new ISelect() {
-                    @Override
-                    public void doSelect() {
-                        brandMapper.findAll();
-                    }
-                });
-        System.out.println("总记录数：" + pageInfo.getTotal());
-        System.out.println("总页数：" + pageInfo.getPages());
-        return pageInfo.getList();
+      return brandMapper.selectAll();
+    }
+
+    /**
+     * 多条件分页查询
+     *
+     * @param brand
+     * @param page
+     * @param rows
+     */
+    @Override
+    public PageResult findByPage(Brand brand, int page, int rows) {
+        try {
+            //开始分页
+            PageInfo<Brand> pageInfo = PageHelper.startPage(page,rows).doSelectPageInfo(new ISelect() {
+                @Override
+                public void doSelect() {
+                    brandMapper.findAll(brand);
+                }
+            });
+            return new PageResult(pageInfo.getTotal(),pageInfo.getList());
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
 
     }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pinyougou.mapper.SpecificationOptionMapper">
+	<insert id="save">
+		insert into `tb_specification_option`(option_name,spec_id,orders)  values
+		<foreach collection="specificationOptions" separator="," item="so">
+			(#{so.optionName},#{id},#{so.orders})
+		</foreach>
+	</insert>
+
+	<select id="findById" resultType="SpecificationOption">
+		select * from `tb_specification_option` where spec_id = #{id}
+	</select>
+</mapper>

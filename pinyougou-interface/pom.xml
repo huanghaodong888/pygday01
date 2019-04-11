@@ -18,6 +18,18 @@
             <artifactId>pinyougou-pojo</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- 配置分页插件 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+        </dependency>
+        <!-- pinyougou-common -->
+        <dependency>
+            <groupId>com.pinyougou</groupId>
+            <artifactId>pinyougou-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>
