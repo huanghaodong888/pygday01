@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 品牌服务接口实现类
@@ -109,4 +110,10 @@ public class BrandServiceImpl implements BrandService {
         }
 
     }
+
+    @Override
+    public List<Map<String, Object>> findBrandList() {
+        return brandMapper.findBrandList();
+    }
+
 }

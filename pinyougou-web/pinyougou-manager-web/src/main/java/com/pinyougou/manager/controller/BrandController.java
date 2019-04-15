@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 品牌控制器
@@ -85,4 +86,10 @@ public class BrandController {
         }
         return false;
     }
+
+    @GetMapping("/findBrandList")
+    public List<Map<String,Object>> findBrandList() {
+        return brandService.findBrandList();
+    }
+
 }

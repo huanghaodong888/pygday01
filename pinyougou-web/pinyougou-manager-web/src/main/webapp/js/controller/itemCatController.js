@@ -19,23 +19,24 @@ app.controller('itemCatController',function ($scope, $controller, baseService) {
             $scope.dataList = response.data;
         })
     };
-    //定义级别
+
+    //定义一个级别grand
     $scope.grand = 1;
-    //点击查看下一级
+    //点击下一级
     $scope.selectList = function (entity,grand) {
         $scope.grand = grand;
         if (grand == 1) {
-            $scope.one = null;
-            $scope.two = null;
+            //$scope.one = null;
+            //$scope.two = null;
         }
         if (grand == 2) {
-            //获取一级数据entity
             $scope.one = entity;
             $scope.two = null;
         }
-       if (grand == 3) {
-           $scope.two = entity;
-       }
+        if (grand == 3) {
+            $scope.two = entity;
+        }
+
         $scope.findByParentId(entity.id);
     }
 

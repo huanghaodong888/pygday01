@@ -14,6 +14,7 @@
     <name>pinyougou-web</name>
     <modules>
         <module>pinyougou-manager-web</module>
+        <module>pinyougou-shop-web</module>
     </modules>
 
     <properties>
@@ -76,7 +77,20 @@
             <groupId>com.github.sgroschupf</groupId>
             <artifactId>zkclient</artifactId>
         </dependency>
+        <!-- spring-security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+
     </dependencies>
+
+
+
 
     <!-- 构建部分 -->
     <build>

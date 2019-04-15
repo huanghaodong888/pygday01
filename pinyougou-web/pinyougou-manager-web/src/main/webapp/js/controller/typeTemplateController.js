@@ -30,7 +30,7 @@ app.controller('typeTemplateController',function ($scope, $controller, baseServi
     //查询关联的品牌
     $scope.findBrandList = function () {
         //发送异步请求
-        baseService.sendGet('/typeTemplate/findBrandList').then(function (response) {
+        baseService.sendGet('/brand/findBrandList').then(function (response) {
             $scope.brandList  = {data : response.data};
 
         })
@@ -39,7 +39,7 @@ app.controller('typeTemplateController',function ($scope, $controller, baseServi
     //查询关联的规格
     $scope.findSpecList = function () {
         //发送异步请求
-        baseService.sendGet('/typeTemplate/findSpecList').then(function (response) {
+        baseService.sendGet('/specification/findSpecList').then(function (response) {
             $scope.specList = {data : response.data};
         })
     }

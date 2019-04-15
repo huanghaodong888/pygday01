@@ -35,20 +35,8 @@ public class TypeTemplateController {
         return typeTemplateService.findByPage(typeTemplate, page, rows);
     }
 
-    @GetMapping("/findBrandList")
-    public List<Map<String,Object>> findBrandList() {
-        return typeTemplateService.findBrandList();
-    }
 
-    @GetMapping("/findSpecList")
-    public List<Map<String,Object>> findSpecList() {
-        try {
-            return typeTemplateService.findSpecList();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
+
 
     @PostMapping("/save")
     public Boolean save(@RequestBody TypeTemplate typeTemplate) {

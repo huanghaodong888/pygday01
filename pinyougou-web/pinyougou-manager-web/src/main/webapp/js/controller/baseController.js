@@ -42,14 +42,15 @@ app.controller('baseController', function ($scope) {
     };
 
     //优化界面
-    $scope.jsonArr2Str = function (jsonStr,key) {
-        //首先将数组字符串转换为JSON数组
-        var jsonArr = JSON.parse(jsonStr);
-        var arr = [];
-        for (var i = 0; i < jsonArr.length; i++) {
-            var json = jsonArr[i];//json的格式是{id ： 1，text ： ''}
-            arr.push(json[key])
+    $scope.jsonArr2Str = function (brandList,key) {
+        //将brandList的json字符串转化为json对象
+        var jsonBrandList = JSON.parse(brandList);//jsonBrandList的格式是 {id ：'' ，text ：''},{id ：'' ，text ：''},...
+        var jsonArr = [];
+        for (var i = 0; i < jsonBrandList.length; i++) {
+            var json = jsonBrandList[i];//json的格式是{id ：'' ，text ：''}
+            jsonArr.push(json[key]);
         }
-        return arr.join(',');
+        // 返回数组中的元素用逗号分隔的字符串
+        return jsonArr.join(",");
     }
 });

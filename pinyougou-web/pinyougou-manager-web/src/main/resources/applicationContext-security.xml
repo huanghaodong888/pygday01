@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!--########## 配置请求URL拦截规则 ##########-->
+    <!-- 配置哪些请求URL不需要拦截 -->
+    <security:http pattern="/login.html" security="none"/>
+    <security:http pattern="/css/**" security="none"/>
+    <security:http pattern="/img/**" security="none"/>
+    <security:http pattern="/js/**" security="none"/>
+    <security:http pattern="/plugins/**" security="none"/>
+
+    <!-- 配置哪些请求URL需要拦截 -->
+    <security:http>
+        <!-- 配置剩余的请求地址都需要ROLE_ADMIN角色才可以访问 -->
+        <security:intercept-url pattern="/**" access="hasRole('ADMIN')"/>
+        <!-- 配置开启表单登录 -->
+        <security:form-login
+                login-page="/login.html"
+                username-parameter="username"
+                password-parameter="password"
+                default-target-url="/admin/index.html"
+                always-use-default-target="true"
+                authentication-failure-url="/login.html"/>
+        <!-- 配置跨站请求伪造不可用-->
+        <security:csrf disabled="true"/>
+        <!-- 配置头信息，指定框架页策略(iframe子窗口也可以访问)-->
+        <security:headers>
+            <security:frame-options policy="SAMEORIGIN"/>
+        </security:headers>
+        <!-- 配置退出登录 -->
+        <security:logout logout-url="/logout"/>
+    </security:http>
+
+
+
+
+    <!-- 配置认证管理器 -->
+    <security:authentication-manager>
+        <!-- 配置认证提供者 -->
+        <security:authentication-provider>
+            <!-- 配置用户认证服务(通过用户名密码方式) -->
+            <security:user-service>
+                <!-- 配置用户认证信息：用户名、密码、角色-->
+                <security:user name="admin"
+                               password="123456"
+                               authorities="ROLE_ADMIN"/>
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
+</beans>

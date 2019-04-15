@@ -7,6 +7,7 @@ import tk.mybatis.mapper.common.Mapper;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 品牌数据访问接口
@@ -18,4 +19,6 @@ import java.util.List;
 public interface BrandMapper extends Mapper<Brand> {
     List<Brand> findAll(Brand brand);
     void deleteAll(Serializable[] ids);
+    @Select("select id,name as text from tb_brand order by id asc ")
+    List<Map<String, Object>> findBrandList();
 }

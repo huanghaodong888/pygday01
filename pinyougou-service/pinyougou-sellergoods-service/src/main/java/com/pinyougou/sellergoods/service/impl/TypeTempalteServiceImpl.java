@@ -1,11 +1,14 @@
 package com.pinyougou.sellergoods.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.ISelect;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pinyougou.common.pojo.PageResult;
+import com.pinyougou.mapper.SpecificationOptionMapper;
 import com.pinyougou.mapper.TypeTemplateMapper;
+import com.pinyougou.pojo.SpecificationOption;
 import com.pinyougou.pojo.TypeTemplate;
 import com.pinyougou.service.TypeTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,8 @@ import java.util.Map;
 public class TypeTempalteServiceImpl implements TypeTemplateService {
     @Autowired
     private TypeTemplateMapper typeTemplateMapper;
+    @Autowired
+    private SpecificationOptionMapper specificationOptionMapper;
     /**
      * 添加方法
      *
@@ -71,7 +76,7 @@ public class TypeTempalteServiceImpl implements TypeTemplateService {
      */
     @Override
     public TypeTemplate findOne(Serializable id) {
-        return null;
+        return typeTemplateMapper.selectByPrimaryKey(id);
     }
 
     /**
@@ -105,12 +110,21 @@ public class TypeTempalteServiceImpl implements TypeTemplateService {
     }
 
     @Override
-    public List<Map<String, Object>> findBrandList() {
-        return typeTemplateMapper.findBrandList();
+    public List<Map> findSpecIds(Long id) {
+        TypeTemplate typeTemplate = findOne(id);
+        String specIds = typeTemplate.getSpecIds();
+        //将spedIds转化为List集合[{},{}]
+        //将String转化为{}，则JSON.parse
+        List<Map> specIdsList = JSON.parseArray(specIds,Map.class);
+        for (Map map : specIdsList) {
+            String specId = map.get("id").toString();
+            SpecificationOption specificationOption = new SpecificationOption();
+            specificationOption.setSpecId(Long.valueOf(specId));
+            List<SpecificationOption> options = specificationOptionMapper.select(specificationOption);
+            map.put("options",options);
+        }
+        return specIdsList;
     }
 
-    @Override
-    public List<Map<String, Object>> findSpecList() {
-        return typeTemplateMapper.findSpecList();
-    }
+
 }

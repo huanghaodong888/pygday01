@@ -21,10 +21,8 @@ public interface TypeTemplateMapper extends Mapper<TypeTemplate>{
 
     List<TypeTemplate> findAll(TypeTemplate typeTemplate);
 
-    @Select("select id,name as text from tb_brand order by id asc ")
-    List<Map<String, Object>> findBrandList();
-    @Select("select id ,spec_name as text from tb_specification order by id asc")
-    List<Map<String, Object>> findSpecList();
+
+
 
     void deleteAll(@Param("ids") Serializable[] ids);
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 //规格控制器
 @RestController
@@ -73,5 +74,15 @@ public class SpecificationController {
             ex.printStackTrace();
         }
         return false;
+    }
+
+    @GetMapping("/findSpecList")
+    public List<Map<String,Object>> findSpecList() {
+        try {
+            return specificationService.findSpecList();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }
