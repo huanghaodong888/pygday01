@@ -29,7 +29,6 @@ app.controller('baseController', function ($scope) {
         // 判断checkbox是否选中
         if(e.target.checked){ // 选中
             // 往数组中添加元素
-            //alert($scope.ids);
             $scope.ids.push(id);
         }else{
             // 获取元素在数组中的下标
@@ -41,16 +40,20 @@ app.controller('baseController', function ($scope) {
         }
     };
 
-    //优化界面
-    $scope.jsonArr2Str = function (brandList,key) {
-        //将brandList的json字符串转化为json对象
-        var jsonBrandList = JSON.parse(brandList);//jsonBrandList的格式是 {id ：'' ，text ：''},{id ：'' ，text ：''},...
-        var jsonArr = [];
-        for (var i = 0; i < jsonBrandList.length; i++) {
-            var json = jsonBrandList[i];//json的格式是{id ：'' ，text ：''}
-            jsonArr.push(json[key]);
+
+    /** 提取数组中json某个属性，返回拼接的字符串(逗号分隔) */
+    $scope.jsonArr2Str = function(jsonArrStr, key){
+        // 把json数组字符串 转化成 json数组
+        var jsonArr = JSON.parse(jsonArrStr);
+
+        var resArr = [];
+
+        for (var i = 0; i < jsonArr.length; i++){
+            // json {id : 1, text : ''}
+            var json = jsonArr[i];
+            resArr.push(json[key]);
         }
-        // 返回数组中的元素用逗号分隔的字符串
-        return jsonArr.join(",");
-    }
+        // 把数组元素用,号分隔返回一个字符串
+        return resArr.join(",");
+    };
 });

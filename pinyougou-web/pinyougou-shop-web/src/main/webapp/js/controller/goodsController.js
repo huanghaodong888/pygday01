@@ -203,4 +203,32 @@ app.controller('goodsController', function($scope, $controller, baseService){
 
         return newItems;
     };
+    /** 定义搜索对象 */
+    $scope.searchEntity = {};
+    /** 定义商品状态数组 */
+    $scope.status = ['未审核','已审核','审核未通过','关闭'];
+
+    //多条件分页查询商品管理
+    $scope.search = function (page, rows) {
+        baseService.findByPage('/goods/findByPage',page,rows,$scope.searchEntity).then(function (response) {
+            $scope.dataList = response.data.rows;
+            $scope.paginationConf.totalItems = response.data.total;
+        })
+    }
+
+    //上架或下架
+    $scope.updateStatus = function (status) {
+        if ($scope.ids.length > 0) {
+            baseService.sendGet('/goods/updateStatus?isMarketable=' + status + '&ids=' + $scope.ids).then(function (response) {
+                if (response.data) {//操作成功，则清空数组ids，重新加载
+                    $scope.reload();
+                    $scope.ids = [];
+                } else {
+                    alert("操作失败");
+                }
+            })
+        } else {//如果复选框没有勾选，则弹框提示
+            alert("请勾选")
+        }
+    }
 });
